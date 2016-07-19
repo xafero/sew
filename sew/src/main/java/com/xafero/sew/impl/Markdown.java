@@ -30,6 +30,8 @@ public class Markdown implements Weblet, Closeable {
 	@Override
 	public String getTextContent(String uri, String query) throws IOException {
 		String raw = base.getTextContent(uri, query);
+		if (uri.endsWith(".css") || uri.endsWith(".js"))
+			return raw;
 		String body = render(raw);
 		String html = String.format("<html><body>%s</body></html>\n", body);
 		return html;
